@@ -28,7 +28,7 @@ nihpd_asym*)
     ;;
 esac
 
-[ ! -f ./output/bold.nii.gz ] && applywarp --spline --ref=${template} --in=${input} --warp=${warp} --out=./output/bold.nii.gz
+[ ! -f ./output/bold.nii.gz ] && applywarp --interp=spline --ref=${template} --in=${input} --warp=${warp} --out=./output/bold.nii.gz
 
 # create product.json
 cat << EOF > product.json
