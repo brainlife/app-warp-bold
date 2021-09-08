@@ -8,6 +8,8 @@ set -e
 input=`jq -r '.input' config.json`
 template=`jq -r '.template' config.json`
 warp=`jq -r '.warp' config.json`
+label=`jq -r '.label' config.json`
+key=`jq -r '.key' config.json`
 
 [ ! -d ./output ] && mkdir -p output
 
@@ -28,9 +30,15 @@ nihpd_asym*)
     ;;
 esac
 
-[ ! -f ./output/bold.nii.gz ] && applywarp --interp=nn --ref=${template} --in=${input} --warp=${warp} --out=./output/bold.nii.gz
+[ ! -f ./output/bold.nii.gz ] && applywarp --interp=nn --ref=${template} --in=${input} --warp=${warp} --out=./output/parc.nii.gz
 
-slicer ./output/bold.nii.gz -x 0.5 out_aligncheck.png
+[ ! -f ./output/label.json ] && cp ${label} ./output/label.json
+
+if [[ -f ${key} ]]; then
+    [ ! -f ./output/key.txt ] && cp ${key} ./output/key.txt
+fi
+
+slicer ./output/parc.nii.gz -x 0.5 out_aligncheck.png
 
 # create product.json
 cat << EOF > product.json
