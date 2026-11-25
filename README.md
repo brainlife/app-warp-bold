@@ -14,39 +14,26 @@
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
-> **Applies an existing FSL nonlinear warp to a volumetric parcellation with FSL applywarp (nearest neighbour), resampling it into MNI152 2 mm or NIHPD template space.**
+**Applies an existing FSL nonlinear warp to a volumetric parcellation with FSL applywarp (nearest neighbour), resampling it into MNI152 2 mm or NIHPD template space.**
 
 Runs applywarp with nearest-neighbour interpolation on the parcellation using the supplied warp, with MNI152 T1 2 mm as reference for every MNI choice or the selected NIHPD template, and copies label.json and key.txt. It does not compute a registration; the warp must map the parcellation's space to the chosen template.
 
-| | |
-|---|---|
-| 📥 **Inputs** | `neuro/parcellation/volume` · `neuro/transform/nifti` |
-| 📤 **Outputs** | `neuro/parcellation/volume` |
-| 🐳 **Container** | `brainlife/fsl:6.0.4` |
-| ⚙️ **Resources** | 2 CPUs · 12 GB memory · 0.5 h walltime |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.569](https://doi.org/10.25663/brainlife.app.569) |
-
-#### 📥 Inputs
+Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.569](https://doi.org/10.25663/brainlife.app.569)
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `parc` | `neuro/parcellation/volume` | yes | Volumetric parcellation with label.json (and key.txt if present). |
 | `transform` | `neuro/transform/nifti` | yes | Nonlinear warp field (warp) to the template space. Must map the parcellation's space to the selected template. |
 
-#### 📤 Outputs
-
 | Output | Datatype | Description |
 |---|---|---|
 | `output` | `neuro/parcellation/volume` | The warped parcellation datatype |
-
-<details>
-<summary><b>⚙️ Parameters</b> (1)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `template` | enum | `MNI152_1mm` | Template defining the output space: any MNI152 option uses the MNI152 T1 2 mm image as applywarp reference; NIHPD options use the matching pediatric template. Options: `MNI152_1mm`, `nihpd_asym_04.5-08.5`, `nihpd_asym_04.5-18.5`, `nihpd_asym_07.0-11.0`, `nihpd_asym_07.5-13.5`, `nihpd_asym_10.0-14.0`, `nihpd_asym_13.0-18.5`. |
 
-</details>
+Runtime: container `brainlife/fsl:6.0.4`; 2 CPUs; 12 GB memory; 0.5 h walltime.
 
 <!-- brainlife-app:end -->
 
